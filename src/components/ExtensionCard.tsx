@@ -49,16 +49,15 @@ export default function ExtensionCard({
           {/* track */}
           <span
             className='block h-6 w-11 rounded-full bg-neutral-700
-            ring-2 ring-red-500 ring-offset-2 ring-offset-neutral-800
             transition-colors duration-200
-            peer-checked:bg-red-500/25'
+            peer-checked:bg-red-500'
           />
           {/* thumb */}
           <span
             className='pointer-events-none absolute left-0 top-0.5 ml-0.5
-                       h-5 w-5 rounded-full bg-neutral-0 shadow
-                       transition-transform duration-200
-                       peer-checked:translate-x-5'
+            h-5 w-5 rounded-full bg-neutral-0 shadow
+            transition-transform duration-200
+            peer-checked:translate-x-5'
           />
         </label>
       </div>
