@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import ExtensionCard from './components/ExtensionCard';
 import FilterButtons from './components/FilterButtons';
 import HeaderBanner from './components/HeaderBanner';
@@ -10,6 +11,8 @@ type Extension = {
   isActive: boolean;
 };
 
+type Filter = 'All' | 'Active' | 'Inactive';
+
 // Map svg filenames in src/assets/images to actual URLs
 const logos = import.meta.glob('./assets/images/*.svg', {
   eager: true,
@@ -17,10 +20,22 @@ const logos = import.meta.glob('./assets/images/*.svg', {
 }) as Record<string, string>;
 
 function App() {
-  const extensionItems = (data as Extension[]).map((item) => ({
-    ...item,
-    logoUrl: logos[item.logo] ?? item.logo
-  }));
+  const [filter, setFilter] = useState<Filter>('All');
+
+  const extensionItems = useMemo(
+    () =>
+      (data as Extension[]).map((it) => ({
+        ...it,
+        logoUrl: logos[it.logo] ?? it.logo
+      })),
+    []
+  );
+
+  const filtered = useMemo(() => {
+    if (filter === 'All') return extensionItems;
+    const wantActive = filter === 'Active';
+    return extensionItems.filter((it) => it.isActive === wantActive);
+  }, [extensionItems, filter]);
 
   return (
     <div className='mx-auto w-full mobile:max-w-[400px] desktop:max-w-[1100px] p-6'>
@@ -29,19 +44,23 @@ function App() {
         <h1 className='text-white text-4xl font-sans font-bold'>
           Extensions List
         </h1>
-        <FilterButtons />
+        <FilterButtons active={filter} onChange={setFilter} />
       </div>
-      <section className='mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-        {extensionItems.map((ext) => (
-          <ExtensionCard
-            key={ext.name}
-            logo={ext.logoUrl}
-            name={ext.name}
-            description={ext.description}
-            isActive={ext.isActive}
-          />
-        ))}
-      </section>
+      {filtered.length === 0 ? (
+        <p>No extensions match the filter</p>
+      ) : (
+        <section className='mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+          {filtered.map((ext) => (
+            <ExtensionCard
+              key={ext.name}
+              logo={ext.logoUrl}
+              name={ext.name}
+              description={ext.description}
+              isActive={ext.isActive}
+            />
+          ))}
+        </section>
+      )}
     </div>
   );
 }
