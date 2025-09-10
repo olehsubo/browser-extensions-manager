@@ -31,7 +31,8 @@
 }
 
 body {
-  @apply bg-neutral-900 text-neutral-0 antialiased font-sans text-[16px];
+  background-image: var(--gradient-dark);
+  @apply text-neutral-0 antialiased font-sans text-[16px];
 }
 
 #root {

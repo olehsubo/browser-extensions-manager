@@ -1,9 +1,29 @@
+import ExtensionCard from './components/ExtensionCard';
 import FilterButtons from './components/FilterButtons';
 import HeaderBanner from './components/HeaderBanner';
+import data from './data.json';
+
+type Extension = {
+  logo: string;
+  name: string;
+  description: string;
+  isActive: boolean;
+};
+
+// Map svg filenames in src/assets/images to actual URLs
+const logos = import.meta.glob('./assets/images/*.svg', {
+  eager: true,
+  as: 'url'
+}) as Record<string, string>;
 
 function App() {
+  const extensionItems = (data as Extension[]).map((item) => ({
+    ...item,
+    logoUrl: logos[item.logo] ?? item.logo
+  }));
+
   return (
-    <div className='mx-auto w-full mobile:max-w-[400px] desktop:max-w-[1100px] bg-neutral-900 p-6'>
+    <div className='mx-auto w-full mobile:max-w-[400px] desktop:max-w-[1100px] p-6'>
       <HeaderBanner />
       <div className='mt-5 flex justify-between'>
         <h1 className='text-white text-4xl font-sans font-bold'>
@@ -11,6 +31,17 @@ function App() {
         </h1>
         <FilterButtons />
       </div>
+      <section className='mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+        {extensionItems.map((ext) => (
+          <ExtensionCard
+            key={ext.name}
+            logo={ext.logoUrl}
+            name={ext.name}
+            description={ext.description}
+            isActive={ext.isActive}
+          />
+        ))}
+      </section>
     </div>
   );
 }
