@@ -16,7 +16,7 @@ const FilterButtons = () => {
             ${
               activeBtn === filter
                 ? ' bg-red-500 text-neutral-900'
-                : 'bg-neutral-700 text-neutral-0 ring-2 ring-neutral-300 hover:bg-neutral-600 '
+                : 'bg-neutral-700 text-neutral-0 ring-1 ring-neutral-400 hover:bg-neutral-600 '
             }
           `}
         >

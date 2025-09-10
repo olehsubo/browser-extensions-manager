@@ -32,7 +32,7 @@ export default function ExtensionCard({
       <div className='flex items-center justify-between'>
         <button
           type='button'
-          className='px-5 py-2 text-md font-semibold rounded-3xl bg-neutral-700 text-neutral-0 ring-2 ring-neutral-300 
+          className='px-5 py-2 text-md font-semibold rounded-3xl bg-neutral-700 text-neutral-0 ring-1 ring-neutral-400 
           focus:ring-2 focus:ring-red-500 focus:bg-red-500 focus:ring-offset-2 focus:ring-offset-neutral-900
           hover:bg-neutral-600'
         >
