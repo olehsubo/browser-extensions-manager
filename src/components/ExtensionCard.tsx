@@ -3,13 +3,17 @@ type Props = {
   name: string;
   description: string;
   isActive: boolean;
+  onToggle: () => void;
+  onRemove: () => void;
 };
 
 export default function ExtensionCard({
   logo,
   name,
   description,
-  isActive
+  isActive,
+  onToggle,
+  onRemove
 }: Props) {
   return (
     <article className='rounded-2xl bg-neutral-800 p-4 shadow-lg ring-1 ring-neutral-500'>
@@ -31,8 +35,9 @@ export default function ExtensionCard({
 
       <div className='flex items-center justify-between'>
         <button
+          onClick={onRemove}
           type='button'
-          className='px-5 py-2 text-md font-semibold rounded-3xl bg-neutral-700 text-neutral-0 ring-1 ring-neutral-400 
+          className='px-5 py-2 text-md font-semibold rounded-3xl bg-neutral-700 text-neutral-0 ring-1 ring-neutral-300 
           focus:ring-2 focus:ring-red-500 focus:bg-red-500 focus:ring-offset-2 focus:ring-offset-neutral-900
           hover:bg-neutral-600'
         >
@@ -43,8 +48,12 @@ export default function ExtensionCard({
         <label className='relative inline-flex items-center cursor-pointer'>
           <input
             type='checkbox'
-            defaultChecked={isActive}
             className='peer sr-only '
+            checked={isActive}
+            onChange={onToggle}
+            aria-label={
+              isActive ? 'Deactivate extension' : 'Activate extension'
+            }
           />
           {/* track */}
           <span
