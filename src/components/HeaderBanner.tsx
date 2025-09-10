@@ -3,7 +3,7 @@ import SunIcon from '../assets/header-images/sun.svg?react';
 
 const HeaderBanner = () => {
   return (
-    <header className='flex justify-between rounded-3xl bg-neutral-800 p-4 '>
+    <header className='flex justify-between rounded-3xl bg-neutral-500 p-4 '>
       <LogoIcon width={150} fill='white' />
       <button
         type='button'
